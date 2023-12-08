@@ -62,26 +62,5 @@ def mergeMaps(old, new):
    
    return updatedPoints
 
-def part2():
-   f = open("day05/day05.txt")
-   seeds = list(map(int, f.readline()[6:].split())) # TODO: RANGIFY
-   seedPairs = [(seeds[i], seeds[i] + seeds[i + 1] - 1) for i in range(0, len(seeds), 2)]
-   line = f.readline()
-   maps = []
-   mapPoints = []
-   
-   while line:
-      f.readline()
-      line = f.readline()
-      newMapPoints = []
-      while line and line != "\n":
-         mapOut, mapIn, mapWidth = list(map(int, line.strip().split()))
-         newMapPoints.append([mapIn, mapIn + mapWidth - 1, mapOut - mapIn])
-         line = f.readline()
-      newMapPoints.sort(key=lambda x: x[0])
-      print(newMapPoints)
-   
-   
-   f.close()
 
-print(part2())
+print(part1())
