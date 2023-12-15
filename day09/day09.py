@@ -17,10 +17,6 @@ def part1():
          print(rows[-2])
          rows.pop()
       total += rows[0][-1]
-      print(rows[0][-1])
-      print("\n\n")
-   
-      
    
    return "Title: " + str(total)
 
@@ -43,6 +39,7 @@ def part2():
          print(rows[-2])
          rows.pop()
       total += rows[0][0]
-      print("\n\n")
+
+   return "Title: " + str(total)
 
 print(part1())
