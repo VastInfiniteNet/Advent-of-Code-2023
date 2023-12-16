@@ -79,10 +79,12 @@ def part2():
    symbolPos, graph = {}, {}
    startPos = ()
    lineNum = 0 
+   tiles = []
    with open("{}/input".format(__file__[-8:-3])) as f: # save non empty symbols
       for line in f:
          for x in range(len(line.strip())):
             if line[x] == IGNORE:
+               tiles.append((x,lineNum))
                continue
             if line[x] == START:
                startPos = (x, lineNum)
@@ -110,6 +112,7 @@ def part2():
    
    print("Mapping out valid pipes")
    queue = [startPos]
+   yMap = {startPos[1]: set([startPos[0]])}
    while queue: # map out valid pipes
       current = queue.pop(0)
       nexts = successors(current, symbolPos[current])
@@ -117,7 +120,32 @@ def part2():
       for node in nexts:
          if node not in graph:
             queue.append(node)
+            yMap[node[1]] = yMap.get(node[1], set()) | set([node[0]])
             
-   print(graph)
+   print("Ymap:", yMap)
+   print("Graph:", graph)
+   print("Titles: ", tiles)
+   consumedTiles = []
+   for tile in tiles:
+      sideCount = 0
+      cornerCount = 0
+      chars = []
+      inLoop = False
+      for x in yMap.get(tile[1], []):
+         if tile[0] > x:
+            continue
+         if symbolPos[(x, tile[1])] == '|':
+            inLoop = not inLoop
+         chars.append(symbolPos[(x, tile[1])])
+      if inLoop:
+         print(chars)
+         print("COUNT:", sideCount, cornerCount)
+         print(tile)
+         print()
+         consumedTiles.append(tile)
+            
+
+
+   return "BROKEN DON'T FIX FOR NOW FUCK THIS"
 
 print(part2())
